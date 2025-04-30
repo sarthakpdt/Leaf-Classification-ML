@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaf Classification</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f3;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ccc;
+            margin-bottom: 30px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .metrics-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .metrics-box p {
+            margin: 6px 0;
+            font-size: 16px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-top: 8px;
+            margin-bottom: 16px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        .result {
+            font-size: 18px;
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Leaf Classification Project</h1>
+        <hr>
+
+        <div class="section">
+            <h2>Model Evaluation</h2>
+            <div class="metrics-box">
+                <p><strong>Accuracy:</strong> {{ evaluation_results.accuracy }}</p>
+                <p><strong>Precision:</strong> {{ evaluation_results.precision }}</p>
+                <p><strong>Recall:</strong> {{ evaluation_results.recall }}</p>
+                <p><strong>F1 Score:</strong> {{ evaluation_results.f1 }}</p>
+                <p><strong>Specificity:</strong> {{ evaluation_results.specificity }}</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Classify a Leaf Image</h2>
+            <form action="/classify" method="post">
+                <label for="img_num">Enter image number (e.g., 1, 2, 3...):</label>
+                <input type="text" id="img_num" name="img_num" required>
+                <button type="submit">Classify</button>
+            </form>
+        </div>
+
+        {% if predicted_species %}
+        <div class="section">
+            <h2>Classification Result</h2>
+            <p class="result"><strong>Predicted Species:</strong> {{ predicted_species }}</p>
+            {% if img_path %}
+            <img src="{{ img_path }}" alt="Classified Leaf Image">
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
